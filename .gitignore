@@ -15,5 +15,6 @@ __pycache__/
 
 # macOS
 .DS_Store
-data/featured_data.csv
-data/cleaned_data.csv
+
+# Ignore all datasets to prevent GitHub LFS/GH001 file size limit errors
+data/
