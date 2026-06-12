@@ -1,0 +1,19 @@
+# Python environments
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+data/featured_data.csv
+data/cleaned_data.csv
