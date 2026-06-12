@@ -24,8 +24,56 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📈 NIFTY-50 AI Investment Intelligence Platform")
-st.markdown("*Data-driven insights for smarter investing*")
+# ---- Custom CSS for Premium UI ----
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    
+    /* Make everything use Inter font */
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Vibrant Gradient Title */
+    .premium-title {
+        background: -webkit-linear-gradient(45deg, #FF416C, #FF4B2B, #FF8E53);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        font-size: 3.5rem;
+        padding-bottom: 10px;
+        letter-spacing: -1px;
+    }
+
+    /* Card styling for Metrics to make them pop */
+    div[data-testid="metric-container"] {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    div[data-testid="metric-container"]:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 65, 108, 0.2);
+        border-color: rgba(255, 65, 108, 0.4);
+    }
+    
+    /* Sleek divider */
+    hr {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(255, 65, 108, 0), rgba(255, 65, 108, 0.75), rgba(255, 65, 108, 0));
+        margin-top: 0px;
+        margin-bottom: 25px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<h1 class="premium-title">NIFTY-50 AI Platform ✨</h1>', unsafe_allow_html=True)
+st.markdown("<p style='font-size: 1.25rem; color: #a0a0a0; font-weight: 400;'>Advanced Data-driven insights for smarter investing, powered by Machine Learning.</p>", unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
 
 # ---- Load Data ----
 @st.cache_data  # Cache so it doesn't reload every time user clicks
@@ -153,17 +201,17 @@ with tab2:
             predicted_price = reg_model.predict(X_latest)[0]
             current_price = latest["Close"].values[0]
             
-            st.markdown("### Tomorrow's Prediction")
+            st.markdown("### 🔮 Tomorrow's Prediction")
             mcol1, mcol2, mcol3 = st.columns(3)
             with mcol1:
                 if prediction == 1:
-                    st.success(f"📈 **UP**")
+                    st.metric("Direction Prediction", "UP 📈")
                 else:
-                    st.error(f"📉 **DOWN**")
+                    st.metric("Direction Prediction", "DOWN 📉")
             with mcol2:
-                st.metric("Confidence", f"{probability[prediction]:.1%}")
+                st.metric("AI Confidence", f"{probability[prediction]:.1%}")
             with mcol3:
-                st.metric("Predicted Close", f"₹{predicted_price:.2f}", delta=f"{predicted_price - current_price:.2f}")
+                st.metric("Predicted Close Price", f"₹{predicted_price:.2f}", delta=f"{predicted_price - current_price:.2f} (from today)")
             
             st.caption("⚠️ This is a model prediction, not financial advice.")
             
